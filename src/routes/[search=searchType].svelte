@@ -157,22 +157,22 @@
 					{:else}
 						<IconExpand />
 					{/if}
-					{showFilters ? 'Hide' : 'Show'} filters
+					{showFilters ? $t('search.hide') : $t('search.show')} {$t('search.filters')}
 				</Button>
 			</div>
 
 			<div style:display={showFilters ? 'flex' : 'none'} class="filters">
-				<h3>Minecraft versions</h3>
+				<h3>{$t('search.mc_ver')}</h3>
 				<CheckboxVirtualList
 					height={180}
 					options={filteredVersions.map((it) => ({ label: it.version, value: it.version }))}
 					bind:value={searchParams.v} />
-				<Checkbox bind:checked={searchParams.h}><IconCode /> Show snapshots</Checkbox>
-				<TextInput placeholder="Search versions..." bind:value={filterTerm} />
+				<Checkbox bind:checked={searchParams.h}><IconCode />{$t('search.show_snapshots')}</Checkbox>
+				<TextInput placeholder="{$t('search.search_ver_placeholder')}" bind:value={filterTerm} />
 
 				<hr class="divider" />
 
-				<h3>Mod Loaders</h3>
+				<h3>{$t('search.modloaders')}</h3>
 				<CheckboxList
 					options={loaders
 						.filter((it) => it.supported_project_types.includes(projectType))
@@ -181,7 +181,7 @@
 
 				<hr class="divider" />
 
-				<h3>Environments</h3>
+				<h3>{$t('search.envs')}</h3>
 				<CheckboxList
 					options={[
 						{ label: $t(`tags.client`), value: 'client', icon: IconClient },
@@ -192,20 +192,20 @@
 
 				<hr class="divider" />
 
-				<h3>Categories</h3>
+				<h3>{$t('search.cats')}</h3>
 				<CheckboxList
 					options={categories
 						.filter((it) => it.project_type === projectType)
 						.map(({ name }) => ({ label: $t(`tags.${name}`), value: name, icon: tagIcons[name] }))}
 					bind:value={searchParams.c} />
 
-				<h3>Licenses</h3>
+				<h3>{$t('search.licences')}</h3>
 				<CheckboxList
 					options={licenses.map(({ short }) => ({ label: short.toUpperCase(), value: short }))}
 					bind:value={searchParams.i} />
 
 				<div class="button-group">
-					<Button on:click={clearFilters}><IconTrash /> Clear filters</Button>
+					<Button on:click={clearFilters}><IconTrash />{$t('search.clear_filters')}</Button>
 				</div>
 			</div>
 		</div>
@@ -224,20 +224,20 @@
 			</div>
 
 			<div class="search-bar__field">
-				Sort by
+				{$t('search.sort_by')}
 				<Select
 					options={[
-						{ value: '', label: 'Relevance' },
-						{ value: 'downloads', label: 'Downloads' },
-						{ value: 'follows', label: 'Followers' },
-						{ value: 'newest', label: 'Recently created' },
-						{ value: 'updated', label: 'Recently updated' },
+						{ value: '', label: $t('search.sort.relevance') },
+						{ value: 'downloads', label: $t('search.sort.downloads') },
+						{ value: 'follows', label: $t('search.sort.follows') },
+						{ value: 'newest', label: $t('search.sort.newest') },
+						{ value: 'updated', label: $t('search.sort.updated') },
 					]}
 					bind:value={searchParams.s} />
 			</div>
 
 			<div class="search-bar__field">
-				Show per page
+				{$t('search.show_per_page')}
 				<Select
 					options={[
 						{ value: '5', label: '5' },
