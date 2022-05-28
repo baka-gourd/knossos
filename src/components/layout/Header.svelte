@@ -10,11 +10,6 @@
 	import { notifications } from '$stores/self'
 	import IconChevronDown from 'virtual:icons/lucide/chevron-down'
 
-	let navItems = projectTypes.map((type) => ({
-		label: $t(`project.types.${type}.plural`),
-		href: `/${$t(`project.types.${type}.plural`, { locale: 'en' }).toLowerCase()}`,
-	}))
-
 	export let dropdownItems = []
 
 	let hideDropdown: boolean
@@ -24,14 +19,20 @@
 	<a href="/" aria-label="Modrinth Home">
 		<LogoLoader height={'24px'} />
 	</a>
-	<NavRow level={0} links={navItems} />
+	<!--only inline html can be updated-->
+	<NavRow
+		level={0}
+		links={projectTypes.map((type) => ({
+			label: $t(`project.types.${type}.plural`),
+			href: `/${$t(`project.types.${type}.plural`, { locale: 'en' }).toLowerCase()}`,
+		}))} />
 
 	<div class="header__actions">
 		{#if $user}
 			<Button
 				href="/notifications"
 				color="transparent"
-				title="{$t('header.notifications')}"
+				title={$t('header.notifications')}
 				badge={$notifications.length > 0}><IconBell /></Button>
 			<div class="avatar" class:hide-dropdown={hideDropdown} tabindex="0">
 				<div

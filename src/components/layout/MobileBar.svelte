@@ -11,11 +11,6 @@
 	import IconGithub from 'virtual:icons/simple-icons/github'
 	import { clickOutside } from 'svelte-use-click-outside'
 
-	let navItems = projectTypes.map((type) => ({
-		label: $t(`project.types.${type}.plural`),
-		href: `/${$t(`project.types.${type}.plural`, { locale: 'en' }).toLowerCase()}`,
-	}))
-
 	let showMenu = false
 
 	export let dropdownItems = []
@@ -32,7 +27,13 @@
 			style:--color-brand={$page.url.pathname === '/' ? '' : 'var(--color-text-lightest)'}>
 			<LogoIcon />
 		</a>
-		<NavRow level={0} links={navItems} resetScroll />
+		<NavRow
+			level={0}
+			links={projectTypes.map((type) => ({
+				label: $t(`project.types.${type}.plural`),
+				href: `/${$t(`project.types.${type}.plural`, { locale: 'en' }).toLowerCase()}`,
+			}))}
+			resetScroll />
 		{#if showMenu}
 			<button class="mobile-bar__nav__item" on:click={() => (showMenu = false)}>
 				<IconX />
@@ -77,7 +78,7 @@
 					: ''}>
 				<span class="mobile-bar__menu__item__title">
 					<IconGithub />
-					Sign in with GitHub
+					{$t('header.sign_in_with_github')}
 				</span>
 			</a>
 		{/if}
